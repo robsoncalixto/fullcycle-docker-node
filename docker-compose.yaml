@@ -1,0 +1,39 @@
+version: '3'
+services:
+  proxy:
+    build:
+      context: nginx
+    container_name: nginx-reverse-proxy   
+    networks:
+      - proxy-network
+    tty: true
+    ports:
+      - "8080:80"
+    depends_on:
+      - node
+  node:
+    build:
+      context: ./node
+    container_name: app
+    entrypoint: dockerize -wait tcp://mysqldb:3306 -timeout 30s node app.js
+    networks:
+      - proxy-network
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./mysql
+    container_name: mysqldb
+    command: --innodb-use-native-aio=0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    tty: true
+    networks:
+      - proxy-network
+networks:
+  proxy-network:
+    driver: bridge
