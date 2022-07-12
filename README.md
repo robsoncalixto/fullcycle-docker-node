@@ -11,8 +11,7 @@ docker docker-compose up -d
 [http://localhost:8080/](http://localhost:8080/)
 
 ## Technologies used:
- - Myql
- - Node
- - Nginx
- - Docker
-
+ - Myql:5.7
+ - Node:18
+ - Nginx:1.22.0
+ - Docker:20.10.16

@@ -1,4 +1,4 @@
-FROM node
+FROM node:18
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN npm install
@@ -10,5 +10,3 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 EXPOSE 3000
-
-ENTRYPOINT [ "node","app.js" ]
