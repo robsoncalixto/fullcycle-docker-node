@@ -4,6 +4,7 @@ services:
     build:
       context: nginx
     container_name: nginx-reverse-proxy   
+    entrypoint: dockerize -wait http://app:3000 -timeout 30s nginx -g 'daemon off;'
     networks:
       - proxy-network
     tty: true
